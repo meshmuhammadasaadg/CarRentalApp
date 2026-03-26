@@ -1,4 +1,6 @@
-﻿namespace CarRentalApp.api.Domain.Entities;
+﻿using CarRentalApp.api.Domain.Enums;
+
+namespace CarRentalApp.api.Domain.Entities;
 
 public class BookingExtra
 {
