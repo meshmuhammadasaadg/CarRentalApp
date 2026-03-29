@@ -17,26 +17,15 @@ public class CarService(ApplicationDbContext context) : GenericRepository<Car>(c
     public async Task<IEnumerable<CarResponse>> GetAvailableAsync()
     {
         var cars = await GetByPredicate(c => c.Status == CarStatus.Available)
-            .Select(c => new CarResponse
-            {
-                Id = c.Id,
-                PlateNumber = c.PlateNumber,
-                Model = c.Model,
-                Year = c.Year
-            }).ToListAsync();
+            .Select(c => new CarResponse(c.Id, c.Year, c.PlateNumber, c.Model)
+            ).ToListAsync();
 
         return cars;
     }
 
     public async Task<CarResponse?> GetByIdAsync(int id)
         => await GetAll().Where(c => c.Id == id)
-        .Select(x => new CarResponse
-        {
-            Id = x.Id,
-            PlateNumber = x.PlateNumber,
-            Model = x.Model,
-            Year = x.Year
-        })
+        .Select(c => new CarResponse(c.Id, c.Year, c.PlateNumber, c.Model))
         .FirstOrDefaultAsync();
 
     public async Task AddCarAsync(CarCreateRequest request)
