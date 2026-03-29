@@ -3,6 +3,7 @@ using CarRentalApp.api.Domain.IServices;
 using CarRentalApp.api.Infrastructure.Persistence;
 using CarRentalApp.api.Infrastructure.Repositories;
 using CarRentalApp.api.Infrastructure.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICarService, CarService>();
+
+builder.Services.AddMediatR(typeof(Program).Assembly);
 
 builder.Services.AddControllers();
 

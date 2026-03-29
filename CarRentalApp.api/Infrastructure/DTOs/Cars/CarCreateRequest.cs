@@ -1,8 +1,11 @@
-﻿namespace CarRentalApp.api.Infrastructure.DTOs.Cars;
+﻿using CarRentalApp.api.Domain.Enums;
 
-public class CarCreateRequest
-{
-    public string PlateNumber { get; set; } = string.Empty;
-    public string Model { get; set; } = string.Empty;
-    public int Year { get; set; }
-}
+namespace CarRentalApp.api.Infrastructure.DTOs.Cars;
+
+public record CarCreateRequest(
+    int Id,
+    string PlateNumber,
+    string Model,
+    int Year,
+    CarStatus Status);
+

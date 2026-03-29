@@ -11,6 +11,7 @@ public class AddBookingMediator(IBookingService bookingService, ICarService carS
 
     public void Add(BookingCreateDto Request)
     {
+        _bookingService.GetAll();
         throw new NotImplementedException();
     }
 }
