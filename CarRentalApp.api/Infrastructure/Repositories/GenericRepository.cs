@@ -17,4 +17,7 @@ public class GenericRepository<T>(ApplicationDbContext context) : IGenericReposi
 
     public void Update(T entity) => _context.Set<T>().Update(entity);
     public void Delete(T entity) => _context.Set<T>().Remove(entity);
+
+    public async Task<int> SaveChangedAsync() =>
+        await _context.SaveChangesAsync();
 }

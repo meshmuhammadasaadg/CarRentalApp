@@ -1,4 +1,5 @@
-﻿using CarRentalApp.api.CQRS.Cars.Queries;
+﻿using CarRentalApp.api.CQRS.Cars.Command;
+using CarRentalApp.api.CQRS.Cars.Queries;
 using CarRentalApp.api.Domain.IServices;
 using CarRentalApp.api.Infrastructure.DTOs.Cars;
 using CarRentalApp.api.Infrastructure.ViewModels.Cars;
@@ -44,11 +45,11 @@ public class CarsController(ICarService carService, IMediator mediator) : Contro
 
 
     [HttpPost("")]
-    public async Task<bool> Add([FromBody] CarCreateRequest request) 
+    public async Task<IActionResult> Add([FromBody] CarCreateRequest request)
     {
-        var car = _carService.AddCarAsync(new CarCreateRequest(default, "s", "s", 2020, default));
+        var result = await _mediator.Send(new AddCarCommand(request.PlateNumber, request.Model, request.Year));
 
-        return true;
+        return result is true ? NoContent() : BadRequest();
     }
 
 
